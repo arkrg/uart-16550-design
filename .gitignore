@@ -1,0 +1,4 @@
+*.swp
+.hdl_checker/
+*bak/
+dev*

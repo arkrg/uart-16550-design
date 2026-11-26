@@ -7,7 +7,7 @@ module uart_bdgen (
   wire [15:0] COUNT_LIMIT = uif_b.cfg_divisor;
   logic [15:0] c_count, n_count;
 
-  always_ff @(posedge clk or negedge rst) begin
+  always_ff @(posedge clk or negedge rstn) begin
     if (!rstn) c_count <= 0;
     else begin
       if (enable) c_count <= n_count;

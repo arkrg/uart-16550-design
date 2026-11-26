@@ -5,12 +5,12 @@ module uart_tx (
 );
   import uart_pkg::*;
   localparam int WIDTH_TICKCNT = $clog2(OSR);
-  localparam int WIDTH_BITCNT = $clog2(WIDTH_DATA);
+  localparam int WIDTH_BITCNT = $clog2(WIDTH_UART_DATA);
 
   states_e c_state, n_state;
   logic [WIDTH_BITCNT-1:0] c_bitcnt, n_bitcnt;
   logic [WIDTH_TICKCNT-1:0] c_tickcnt, n_tickcnt;
-  logic [WIDTH_DATA-1:0] c_txsr, n_txsr;
+  logic [WIDTH_UART_DATA-1:0] c_txsr, n_txsr;
   logic n_tx, c_tx, n_busy, c_busy;
   logic xor_data;
 
@@ -71,7 +71,7 @@ module uart_tx (
         if (uif_t.baud_tick) begin
           if (c_tickcnt == OSR - 1) begin
             n_tickcnt = 0;
-            if (c_bitcnt == WIDTH_DATA - 1) begin
+            if (c_bitcnt == WIDTH_UART_DATA - 1) begin
               n_bitcnt = 0;
               n_state  = uif_t.cfg_en_parity ? PARITY : STOP;
             end else begin
